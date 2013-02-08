@@ -15,11 +15,19 @@
 #include <stdlib.h>	/* for atoi(3) */
 #include <unistd.h>	/* for getopt(3) */
 #include <string.h>	/* for strerror(3) */
-#include <sysexits.h>	/* for EX_* exit codes */
 #include <errno.h>	/* for errno */
 
 #include <asn_application.h>
 #include <asn_internal.h>	/* for _ASN_DEFAULT_STACK_MAX */
+
+#ifdef _WIN32
+#define EX_USAGE        64
+#define EX_DATAERR      65
+#define EX_UNAVAILABLE  69
+#define EX_OSERR        71
+#else
+#include <sysexits.h>	/* for EX_* exit codes */
+#endif
 
 /* Convert "Type" defined by -DPDU into "asn_DEF_Type" */
 #define	ASN_DEF_PDU(t)	asn_DEF_ ## t
