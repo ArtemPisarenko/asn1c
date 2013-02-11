@@ -39,7 +39,12 @@ static struct tm *gmtime_r(const time_t *tloc, struct tm *result) {
 
 #define	tzset()	_tzset()
 #define	putenv(c)	_putenv(c)
+
+#if (__MSVCRT_VERSION__ >= 0x0800)
+#define	timegm _mkgmtime
+#else
 #define	_EMULATE_TIMEGM
+#endif
 
 #endif	/* _WIN32 */
 
